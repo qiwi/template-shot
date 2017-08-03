@@ -1,0 +1,39 @@
+{
+  "name": "template-shot",
+  "version": "0.0.1",
+  "description": "",
+  "main": "build/index.js",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/qiwi/template-shot.git"
+  },
+  "author": "dimdi-y@ya.ru",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/qiwi/template-shot/issues"
+  },
+  "homepage": "https://github.com/qiwi/template-shot#readme",
+  "dependencies": {
+    "config": "^1.26.1",
+    "fs-readfile-promise": "^3.0.0",
+    "log4js": "^2.0.1",
+    "string-template": "^1.0.0",
+    "webshot": "^0.18.0"
+  },
+  "devDependencies": {
+    "@types/mocha": "^2.2.41",
+    "@types/node": "^8.0.10",
+    "@types/sinon": "^2.3.2",
+    "@types/string-template": "^1.0.2",
+    "chai": "^4.0.2",
+    "mocha": "^3.4.2",
+    "sinon": "^2.3.7",
+    "tslint": "^5.5.0",
+    "typescript": "^2.4.1"
+  }
+}
