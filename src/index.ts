@@ -1,4 +1,4 @@
-import {PictureGenerator} from './pictureGenerator';
+import {PictureGenerator} from './PictureGenerator';
 import {HTMLTemplator, ITemplateValues} from './HTMLTemplator';
 import {Stream, Readable} from 'stream';
 
@@ -35,6 +35,7 @@ export class TemplateShot {
         options: any = PictureGenerator.DEFAULT_OPTIONS
     ): Stream {
         const result = new Readable();
+        result._read = () => null;
         result.pause();
         this.templator.generateHTML(template, templateValues).then((html) => {
             result.resume();
