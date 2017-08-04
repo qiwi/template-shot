@@ -12,6 +12,9 @@ This module is installed via npm:
 npm install --save template-shot
 ```
 
+## Notice
+renderOptions (where needed) are the same as [webshot](https://www.npmjs.com/package/webshot)'s
+
 ## Examples
 
 This example renders the sample template [index.html](examples/templates/index.html) into [example1.png](examples/example1.png). Notice, that {paragraph_text} is replaced with `Test text` in the rendered image.
@@ -23,9 +26,19 @@ console.log('looking for templates in:\n' + templatePath);
 
 const ts = new TemplateShot(templatePath);
 const templateName = 'index.html';
+const renderOptions = {   // these are webshot options
+            screenSize: {
+                width: 540,
+                height: 900
+            },
+            shotSize: {
+                width: 540,
+                height: 'all'
+            }
+        };
 
 console.log('rendering template ' + templateName + ' from ' + templatePath + ' to example1.png');
-ts.renderFile(templateName, {'paragraph_text' : 'Test text'}, 'example1.png');
+ts.renderFile(templateName, {'paragraph_text' : 'Test text'}, 'example1.png', renderOptions);
 ```
 ### Rendered image
 ![rendered image](examples/example1.png)
