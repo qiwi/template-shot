@@ -12,7 +12,7 @@ npm install --save template-shot
 ## Examples
 
 This example renders the sample template [index.html](examples/templates/index.html) into [example1.png](examples/example1.png). Notice, that {paragraph_text} is replaced with `Test text` in the rendered image.
-```typescript
+```javascript
 const {TemplateShot} = require( '../build/index');
 
 const templatePath = __dirname + '/examples/templates';
