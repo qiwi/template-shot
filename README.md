@@ -27,6 +27,8 @@ run this script from the root folder of the project
 
 See [examples](examples) folder for more examples
 
+TODO: add template examples
+
 ## Contributing
 
 ### To set up your development environment:
