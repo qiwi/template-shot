@@ -13,6 +13,17 @@
     "type": "git",
     "url": "git+https://github.com/qiwi/template-shot.git"
   },
+  "keywords":[
+    "image",
+    "shot",
+    "screenshot",
+    "png",
+    "webshot",
+    "screen",
+    "printscreen",
+    "html",
+    "template"
+  ],
   "author": "dimdi-y@ya.ru",
   "license": "MIT",
   "bugs": {
