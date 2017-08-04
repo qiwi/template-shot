@@ -20,11 +20,11 @@ To set up your development environment:
 2. in the shell `cd` to the main folder,
 3. hit `npm install`
 
-To build the project(including the tests):
+### To build the project(including the tests):
     `npm run build`
-To watch the files for changes and rebuild if necessary:
+### To watch the files for changes and rebuild if necessary:
     `npm run wath`
-To run tests:
+### To run tests:
     `npm run test`
-To run linter:
+### To run linter:
     `npm run lint`
