@@ -11,7 +11,7 @@ npm install --save template-shot
 
 ## Examples
 
-This example renders the sample template [index.html](examples/templates/index.html) into [example1.png](examples/example1.png). Notice, that {paragraph_text} is replaced with `Test text` in the rendered image
+This example renders the sample template [index.html](examples/templates/index.html) into [example1.png](examples/example1.png). Notice, that {paragraph_text} is replaced with `Test text` in the rendered image.
 ```
 const {TemplateShot} = require( '../build/index');
 
@@ -23,11 +23,12 @@ const ts = new TemplateShot(templatePath);
 console.log('rendering template index.html to example1.png');
 ts.renderFile('index.html', {'paragraph_text' : 'Test text'}, 'example1.png');
 ```
+### Rendered image
 ![rendered image](examples/example1.png)
 
-run this script from the root folder of the project
+Run this script from the root folder of the project.
 
-See [examples](examples) folder for more examples
+See [examples](examples) folder for more examples.
 
 TODO: add template examples
 
