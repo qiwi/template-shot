@@ -18,7 +18,6 @@ export class HTMLTemplator {
         const template: string = (await readFile(templatePath)).toString();
         // TODO: use cache here
         templateValues.templateDir = 'file://' + this.templateDir;
-
         // TODO: allow using lodash
         const res = format(template, templateValues);
         return res;

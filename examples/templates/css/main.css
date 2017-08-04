@@ -1,0 +1,17 @@
+* {
+    margin: 3px;
+}
+
+.my-class{
+    background-color: red;
+}
+
+.webkit-test{
+    -webkit-appearance: textarea;
+}
+
+#icon{
+    background-image: url(../img/icon.svg);
+    width: 50px;
+    height: 50px;
+}
