@@ -59,4 +59,5 @@ typings/
 
 # transpiled JS and .d.ts
 *.js
+!examples/*.js
 *.d.ts
