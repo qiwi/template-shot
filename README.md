@@ -2,11 +2,11 @@
 ![](https://travis-ci.org/qiwi/template-shot.svg?branch=master)
 
 
-A simple library which can render the html template
+A simple library which can render the html template to a png image
 
 ## Installation
 
-This module is installed via npm (comming soon):
+This module is installed via npm:
 
 ```
 npm install --save template-shot
@@ -16,20 +16,19 @@ npm install --save template-shot
 
 This example renders the sample template [index.html](examples/templates/index.html) into [example1.png](examples/example1.png). Notice, that {paragraph_text} is replaced with `Test text` in the rendered image.
 ```javascript
-const {TemplateShot} = require( '../build/index');
+const {TemplateShot} = require( 'template-shot');
 
-const templatePath = __dirname + '/examples/templates';
+const templatePath = 'path/to/your/template/folder';
 console.log('looking for templates in:\n' + templatePath);
 
 const ts = new TemplateShot(templatePath);
+const templateName = 'index.html';
 
-console.log('rendering template index.html to example1.png');
-ts.renderFile('index.html', {'paragraph_text' : 'Test text'}, 'example1.png');
+console.log('rendering template ' + templateName + ' from ' + templatePath + ' to example1.png');
+ts.renderFile(templateName, {'paragraph_text' : 'Test text'}, 'example1.png');
 ```
 ### Rendered image
 ![rendered image](examples/example1.png)
-
-Run this script from the root folder of the project.
 
 See [examples](examples) folder for more examples.
 

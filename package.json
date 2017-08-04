@@ -1,7 +1,7 @@
 {
   "name": "template-shot",
   "version": "0.0.1",
-  "description": "",
+  "description": "A simple library which can render the html template to a png image",
   "main": "build/index.js",
   "scripts": {
     "build": "tsc",
@@ -20,9 +20,7 @@
   },
   "homepage": "https://github.com/qiwi/template-shot#readme",
   "dependencies": {
-    "config": "^1.26.1",
     "fs-readfile-promise": "^3.0.0",
-    "log4js": "^2.0.1",
     "string-template": "^1.0.0",
     "webshot": "^0.18.0"
   },
