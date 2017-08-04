@@ -14,6 +14,7 @@ export class HTMLTemplator {
         }
     }
     public async generateHTML(templateName: string, templateValues: ITemplateValues = {}): Promise<string> {
+        // TODO: add the ability to load template from string
         const templatePath: string = path.join(this.templateDir, templateName);
         const template: string = (await readFile(templatePath)).toString();
         // TODO: use cache here
