@@ -31,9 +31,9 @@ See [examples](examples) folder for more examples
 
 ### To set up your development environment:
 
-1. clone the repo to your desktop,
-2. in the shell `cd` to the main folder,
-3. hit `npm install`
+1. Clone the repo to your desktop,
+2. In the shell `cd` to the main folder,
+3. Hit `npm install`
 
 ### To build the project (including the tests):
     `npm run build`
