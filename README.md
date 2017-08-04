@@ -14,7 +14,7 @@ See examples folder
 
 ## Contributing
 
-To set up your development environment:
+### To set up your development environment:
 
 1. clone the repo to your desktop,
 2. in the shell `cd` to the main folder,
