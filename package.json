@@ -1,6 +1,6 @@
 {
   "name": "template-shot",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A simple library which can render the html template to a png image.",
   "main": "build/index.js",
   "scripts": {
@@ -13,7 +13,7 @@
     "type": "git",
     "url": "git+https://github.com/qiwi/template-shot.git"
   },
-  "keywords":[
+  "keywords": [
     "image",
     "shot",
     "screenshot",
