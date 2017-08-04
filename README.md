@@ -2,7 +2,7 @@
 ![](https://travis-ci.org/qiwi/template-shot.svg?branch=master)
 
 
-A simple library which can render the html template to a png image
+A simple library which can render the html template to a png image.
 
 ## Installation
 

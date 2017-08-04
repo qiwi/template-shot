@@ -1,7 +1,7 @@
 {
   "name": "template-shot",
   "version": "0.0.1",
-  "description": "A simple library which can render the html template to a png image",
+  "description": "A simple library which can render the html template to a png image.",
   "main": "build/index.js",
   "scripts": {
     "build": "tsc",
