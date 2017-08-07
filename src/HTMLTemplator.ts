@@ -8,7 +8,7 @@ export interface ITemplateValues {
 
 export class HTMLTemplator {
     private templateCache: Map<string, string> = new Map<string, string>();
-    constructor(private templateDir: string = '/', private useCache: boolean = false) {
+    constructor(private templateDir: string = '/', private useCache: boolean = true) {
         // TODO: make this work relatively to the file where instance is created
         if (this.templateDir.startsWith('./')) {
             this.templateDir = path.join(__dirname, templateDir);
@@ -29,7 +29,7 @@ export class HTMLTemplator {
         return res;
     }
 
-    private async readCachedFile(path: string): Promise<string> {
+    private readCachedFile= async (path: string): Promise<string> => {
         if (this.useCache && this.templateCache.has(path)) {
             return Promise.resolve(this.templateCache.get(path));
         } else {
@@ -38,7 +38,9 @@ export class HTMLTemplator {
                     if (err) {
                         reject(err);
                     } else {
-                        resolve(template.toString);
+                        const res: string = template.toString();
+                        this.templateCache.set(path, res);
+                        resolve(res);
                     }
                 });
             });
