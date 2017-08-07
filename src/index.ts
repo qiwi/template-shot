@@ -5,8 +5,8 @@ import {Stream, Readable} from 'stream';
 export class TemplateShot {
     protected pictureGenerator: PictureGenerator;
     protected templator: HTMLTemplator;
-    constructor(templateDir: string = './') {
-        this.templator = new HTMLTemplator(templateDir);
+    constructor(templateDir: string = './', useCache: boolean = false) {
+        this.templator = new HTMLTemplator(templateDir, useCache);
         this.pictureGenerator = new PictureGenerator();
     }
 

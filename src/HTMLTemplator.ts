@@ -8,7 +8,7 @@ export interface ITemplateValues {
 
 export class HTMLTemplator {
     private templateCache: Map<string, string> = new Map<string, string>();
-    constructor(private templateDir: string = '/', private useCache: boolean = true) {
+    constructor(private templateDir: string = '/', private useCache: boolean = false) {
         // TODO: make this work relatively to the file where instance is created
         if (this.templateDir.startsWith('./')) {
             this.templateDir = path.join(__dirname, templateDir);
