@@ -1,11 +1,12 @@
 {
 	"compilerOptions": {
 		"module": "commonjs",
-		"target": "ES6",
+		"target": "ES5",
 		"outDir": "build/",
 		"declaration": true,
 		"rootDir": "src/",
-		"allowJs": false
+		"allowJs": false,
+		"lib": ["ES2015"]
 	},
 	"exclude": [
 		"node_modules",

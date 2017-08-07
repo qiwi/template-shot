@@ -56,10 +56,10 @@ TODO: add template examples
 3. Hit `npm install`
 
 ### To build the project (including the tests):
-    `npm run build`
+    npm run build
 ### To watch the files for changes and rebuild if necessary:
-    `npm run wath`
+    npm run watch
 ### To run tests:
-    `npm run test`
+    npm run test
 ### To run linter:
-    `npm run lint`
+    npm run lint
