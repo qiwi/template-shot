@@ -32,7 +32,7 @@ const renderOptions = {   // these are webshot options
                 height: 900
             },
             shotSize: {
-                width: 540,
+                width: 'all',
                 height: 'all'
             }
         };
