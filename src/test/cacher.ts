@@ -3,10 +3,15 @@ import {expect} from 'chai';
 import * as imageType from 'image-type';
 import * as fs from 'fs';
 
-const cacher = new Cacher(1000);
+let cacher;
 
 describe('Cacher', function(): void {
     this.timeout(10000); // so we can simulate a long wait
+
+    beforeEach(function(done: MochaDone): void {
+        cacher = new Cacher(1000);
+        done();
+    });
 
     it('single cache', function(done: MochaDone): void {
         cacher.set('a', Promise.resolve(0));
@@ -20,6 +25,13 @@ describe('Cacher', function(): void {
         }).catch((err) => {
             done(err);
         });
+    });
+
+    it('.has check', function(done: MochaDone): void {
+        expect(cacher.has('a')).to.eql(false);
+        cacher.set('a', new Promise((resolve, reject) => setTimeout(() => resolve(123), 500)));
+        expect(cacher.has('a')).to.eql(true);
+        done();
     });
 
     it('smart cache', function(done: MochaDone): void {
