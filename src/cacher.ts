@@ -6,6 +6,10 @@ because the value was not provided by Cacher.set';
     private cache: Map<string, T> = new Map<string, T>(); // TODO; add smarter cache here
     constructor(private noResponseTimeout: number = -1) {super(); }
 
+    public has(key: string): boolean {
+        return this.cache.has(key);
+    }
+
     public async get(key: string): Promise<T> {
         if (this.cache.has(key)) {
             const res = this.cache.get(key);
@@ -21,11 +25,12 @@ because the value was not provided by Cacher.set';
             }
         } else {
             return Promise.reject(new Error('No such key'));
-            // Maybe we should call this.startCounting(key), and then return;
+            // Maybe we should call this.startEvaluating(key), and then return;
         }
     }
 
-    public startCounting(key: string): void {
+    // TODO: try PromiseLike instead. This way we'll know if the value isn't gonna be provided on reject
+    public startEvaluating(key: string): void {
         this.cache.set(key, undefined);
     }
 

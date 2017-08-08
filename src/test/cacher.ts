@@ -3,10 +3,10 @@ import {expect} from 'chai';
 import * as imageType from 'image-type';
 import * as fs from 'fs';
 
-const cacher = new Cacher(5000);
+const cacher = new Cacher(1000);
 
 describe('Cacher', function(): void {
-    this.timeout(20000); // so we can simulate a long wait
+    this.timeout(10000); // so we can simulate a long wait
 
     it('single cache', function(done: MochaDone): void {
         cacher.set('a', 0);
@@ -23,8 +23,8 @@ describe('Cacher', function(): void {
     });
 
     it('smart cache', function(done: MochaDone): void {
-        cacher.startCounting('a');
-        setTimeout(() => {cacher.set('a', 123); }, 2000);
+        cacher.startEvaluating('a');
+        setTimeout(() => {cacher.set('a', 123); }, 500);
         cacher.get('a').then((res) => {
             expect(res).to.eql(123);
             return cacher.get('a');
@@ -36,7 +36,7 @@ describe('Cacher', function(): void {
         });
     });
     it('smart cache timeout', function(done: MochaDone): void {
-        cacher.startCounting('a');
+        cacher.startEvaluating('a');
         setTimeout(() => {cacher.set('a', 123); }, 10000);
         cacher.get('a').then((res) => {
             return done('cacher hasn\'t rejected the timed out promise');
