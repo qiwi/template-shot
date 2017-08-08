@@ -19,14 +19,16 @@ renderOptions (where needed) are the same as [webshot](https://www.npmjs.com/pac
 * `TemplateShot(templateDir: string = './', useCache: boolean = false)`Constructor of the base class.
     * `templateDir: string` is the path to your templates
     * `useCache: boolean`
-* ``` 
+* 
+``` 
     TemplateShot.renderFile(
         template: string,
         templateValues: ITemplateValues = {},
         fname: string,
         options: any = PictureGenerator.DEFAULT_OPTIONS 
     ): Promise<void>
-    ``` Renders the template to a file.
+```
+    Renders the template to a file.
     * `template: string` path to your template
     * `templateValues: ITemplateValues` object, wich properties will be pasted to the template
     * `fname: string` path to save the rendered image
