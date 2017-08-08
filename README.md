@@ -16,7 +16,9 @@ npm install --save template-shot
 renderOptions (where needed) are the same as [webshot](https://www.npmjs.com/package/webshot)'s
 
 ## Available methods
->! TODO: add me
+<details>
+    TODO: add me 
+</details>
 
 ## Examples
 
