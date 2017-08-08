@@ -9,7 +9,7 @@ export class PictureGenerator {
             height: 480
         },
         shotSize: {
-            width: 320,
+            width: 'all',
             height: 'all'
         }
     };
