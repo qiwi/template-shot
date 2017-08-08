@@ -7,6 +7,8 @@
     "build": "tsc",
     "watch": "tsc -w",
     "lint": "tslint 'src/*.ts' --type-check --project tsconfig.json",
+    "prepare": "npm run build && npm run test",
+    "prepublish": "check-node-version --npm \">=4\" || npm run prepare",
     "test": "mocha ./build/test --recursive"
   },
   "repository": {
@@ -40,6 +42,7 @@
     "@types/sinon": "^2.3.2",
     "@types/string-template": "^1.0.2",
     "chai": "^4.0.2",
+    "check-node-version": "^1.1.2",
     "image-type": "^3.0.0",
     "mocha": "^3.5.0",
     "sinon": "^2.3.7",

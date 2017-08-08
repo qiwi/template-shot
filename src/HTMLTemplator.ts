@@ -29,7 +29,7 @@ export class HTMLTemplator {
         return res;
     }
 
-    private readCachedFile= async (path: string): Promise<string> => {
+    private readCachedFile(path: string): Promise<string> {
         if (this.useCache && this.templateCache.has(path)) {
             return Promise.resolve(this.templateCache.get(path));
         } else {
