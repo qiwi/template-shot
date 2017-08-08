@@ -17,8 +17,17 @@ renderOptions (where needed) are the same as [webshot](https://www.npmjs.com/pac
 
 ## Available methods
 * `TemplateShot(templateDir: string = './', useCache: boolean = false)`Constructor of the base class.
-    *`templateDir: string` is the path to your templates
-    *`useCache: boolean`
+    * `templateDir: string` is the path to your templates
+    * `useCache: boolean`
+* ``` 
+    TemplateShot.template: string,
+    templateValues: ITemplateValues = {},
+    fname: string,
+    options: any = PictureGenerator.DEFAULT_OPTIONS 
+    ```
+        Constructor of the base class.
+    * `templateDir: string` is the path to your templates
+    * `useCache: boolean`
 
     
 if set to true, the loaded templates are being cached
