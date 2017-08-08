@@ -15,6 +15,22 @@ npm install --save template-shot
 ## Notice
 renderOptions (where needed) are the same as [webshot](https://www.npmjs.com/package/webshot)'s
 
+## Available methods
+* constructor
+```javascript 
+TemplateShot(templateDir: string = './', useCache: boolean = false)
+```
+Constructor of the base class.
+    *templateDir: string
+
+
+    is the path to your templates
+    *useCache: boolean
+
+
+    if set to true, the loaded templates are being cached
+
+
 ## Examples
 
 This example renders the sample template [index.html](examples/templates/index.html) into [example1.png](examples/example1.png). Notice, that {paragraph_text} is replaced with `Test text` in the rendered image.
