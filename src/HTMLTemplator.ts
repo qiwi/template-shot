@@ -8,7 +8,7 @@ export interface ITemplateValues {
 }
 
 export class HTMLTemplator {
-    private templateCache: Cacher<string> = new Cacher<string>();
+    private templateCache: Cacher<string> = new Cacher<string>(); // we don't need to reject yet
     constructor(
         private templateDir: string = '/',
         private useCache: boolean = false
@@ -37,18 +37,18 @@ export class HTMLTemplator {
         if (this.useCache && this.templateCache.has(path)) {
             return this.templateCache.get(path);
         } else {
-            return new Promise<string>((resolve: any, reject: any): void => {
-                this.templateCache.startEvaluating(path);
+            const valuePromise: Promise<string> = new Promise<string>((resolve: any, reject: any): void => {
                 readFile(path, (err: Error, template: Buffer) => {
                     if (err) {
                         reject(err);
                     } else {
                         const res: string = template.toString();
-                        this.templateCache.set(path, res);
                         resolve(res);
                     }
                 });
             });
+            this.templateCache.set(path, valuePromise);
+            return valuePromise;
         }
     }
 }

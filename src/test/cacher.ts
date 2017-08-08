@@ -9,8 +9,8 @@ describe('Cacher', function(): void {
     this.timeout(10000); // so we can simulate a long wait
 
     it('single cache', function(done: MochaDone): void {
-        cacher.set('a', 0);
-        cacher.set('b', 'asdf');
+        cacher.set('a', Promise.resolve(0));
+        cacher.set('b', Promise.resolve('asdf'));
         cacher.get('a').then((res) => {
             expect(res).to.eql(0);
             return cacher.get('b');
@@ -23,8 +23,7 @@ describe('Cacher', function(): void {
     });
 
     it('smart cache', function(done: MochaDone): void {
-        cacher.startEvaluating('a');
-        setTimeout(() => {cacher.set('a', 123); }, 500);
+        cacher.set('a', new Promise((resolve, reject) => resolve(123)));
         cacher.get('a').then((res) => {
             expect(res).to.eql(123);
             return cacher.get('a');
@@ -36,8 +35,7 @@ describe('Cacher', function(): void {
         });
     });
     it('smart cache timeout', function(done: MochaDone): void {
-        cacher.startEvaluating('a');
-        setTimeout(() => {cacher.set('a', 123); }, 10000);
+        cacher.set('a', new Promise((resolve, reject) => resolve(123)));
         cacher.get('a').then((res) => {
             return done('cacher hasn\'t rejected the timed out promise');
         }).catch((err: Error) => {
