@@ -13,9 +13,11 @@ because the value was not provided by Cacher.set';
     public async get(key: string): Promise<T> {
         if (this.cache.has(key)) {
             const res: any = this.cache.get(key);
-            if (typeof(res.then) === 'function') {
-                return res;
-            } else {
+            if (typeof(res.then) === 'function') { // if true, we have a Promise<T>
+                return this.noResponseTimeout > 0 ? Promise.race([res, new Promise((resolve, reject) => {
+                    setTimeout(() => reject(new Error(Cacher.TIMEOUT_ERROR_MESSAGE)), this.noResponseTimeout);
+                })]) : res;
+            } else {// else we have T
                 return Promise.resolve(res);
             }
         } else {

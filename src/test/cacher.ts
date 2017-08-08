@@ -23,19 +23,22 @@ describe('Cacher', function(): void {
     });
 
     it('smart cache', function(done: MochaDone): void {
-        cacher.set('a', new Promise((resolve, reject) => resolve(123)));
-        cacher.get('a').then((res) => {
+        cacher.set('a', new Promise((resolve, reject) => setTimeout(() => resolve(123), 500)));
+        const checks = [];
+        checks.push(cacher.get('a').then((res) => {
             expect(res).to.eql(123);
-            return cacher.get('a');
-        }).then((res) => {
+        }));
+        checks.push(cacher.get('a').then((res) => {
             expect(res).to.eql(123);
+        }));
+        Promise.all(checks).then((res) => {
             done();
         }).catch((err) => {
             done(err);
         });
     });
     it('smart cache timeout', function(done: MochaDone): void {
-        cacher.set('a', new Promise((resolve, reject) => resolve(123)));
+        cacher.set('a', new Promise((resolve, reject) => setTimeout(() => resolve(123), 2000)));
         cacher.get('a').then((res) => {
             return done('cacher hasn\'t rejected the timed out promise');
         }).catch((err: Error) => {
