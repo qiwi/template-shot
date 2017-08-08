@@ -16,10 +16,21 @@ npm install --save template-shot
 renderOptions (where needed) are the same as [webshot](https://www.npmjs.com/package/webshot)'s
 
 ## Available methods
-* ```javascript TemplateShot(templateDir: string = './', useCache: boolean = false)```
+* constructor
+```javascript 
+TemplateShot(templateDir: string = './', useCache: boolean = false)
+```
 Constructor of the base class.
-    * ```javascript templateDir: string``` is the path to your templates
-    * ```javascript useCache: boolean``` if set to true, the loaded templates are being cached
+    * 
+```javascript
+templateDir: string
+```
+is the path to your templates
+    * 
+```javascript
+useCache: boolean
+```
+if set to true, the loaded templates are being cached
 
 
 ## Examples
