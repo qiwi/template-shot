@@ -4,7 +4,7 @@ import {expect} from 'chai';
 import * as sinon from 'sinon';
 import * as imageType from 'image-type';
 
-const templator = new HTMLTemplator();
+let templator = new HTMLTemplator('/', true);
 
 const template = '<html>\
     <head>\
@@ -47,7 +47,7 @@ describe('Templator', function(): void {
 
     const sandbox = sinon.sandbox.create();
     beforeEach(function(done: MochaDone): void {
-
+        templator = new HTMLTemplator('/', true);
         sandbox.stub(fs, 'readFile').callsFake((path, cb) => {cb(undefined, new Buffer(template)); });
         done();
     });
@@ -61,8 +61,21 @@ describe('Templator', function(): void {
         });
     });
 
+    it('cached template', function(done: MochaDone): void {
+            templator.generateHTML('index.html', {paragraph_text: 'tst'}).then((res) => {
+                expect(res).to.eql(resolvedTemplate);
+                return templator.generateHTML('index.html', {paragraph_text: 'tst'});
+            }).then((res) => {
+                expect(res).to.eql(resolvedTemplate);
+                done();
+            }).catch((err) => {
+                done(err);
+            });
+        });
+
     afterEach(function(done: MochaDone): void {
         sandbox.restore();
         done();
     });
+
 });
