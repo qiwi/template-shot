@@ -19,24 +19,45 @@ renderOptions (where needed) are the same as [webshot](https://www.npmjs.com/pac
 * constructor
 `TemplateShot(templateDir: string = './', useCache: boolean = false)`Constructor of the base class.
     * `templateDir: string` is the path to your templates
-    * `useCache: boolean`
+    * `useCache: boolean` if set to true, the loaded templates are being cached
 * TemplateShot.renderFile
-``` 
-    TemplateShot.renderFile(
-        template: string,
-        templateValues: ITemplateValues = {},
-        fname: string,
-        options: any = PictureGenerator.DEFAULT_OPTIONS 
-    ): Promise<void>
-```
+    ```typescript
+        TemplateShot.renderFile(
+            template: string,
+            templateValues: ITemplateValues = {},
+            fname: string,
+            options: any = PictureGenerator.DEFAULT_OPTIONS 
+        ): Promise<void>
+    ```
     Renders the template to a file.
     * `template: string` path to your template
     * `templateValues: ITemplateValues` object, wich properties will be pasted to the template
     * `fname: string` path to save the rendered image
     * `options: any` renderOptions (where needed) are the same as [webshot](https://www.npmjs.com/package/webshot)'s
-    
-if set to true, the loaded templates are being cached
-
+* TemplateShot.renderStream
+    ```typescript
+    TemplateShot.renderStream(
+        template: string,
+        templateValues: ITemplateValues = {},
+        options: any = PictureGenerator.DEFAULT_OPTIONS
+    ): Stream
+    ```
+    Renders the template to a stream.
+    * `template: string` path to your template
+    * `templateValues: ITemplateValues` object, wich properties will be pasted to the template
+    * `options: any` renderOptions (where needed) are the same as [webshot](https://www.npmjs.com/package/webshot)'s
+* TemplateShot.renderString
+    ```typescript
+    TemplateShotrenderString(
+        template: string,
+        templateValues: ITemplateValues = {},
+        options: any = PictureGenerator.DEFAULT_OPTIONS
+    ): Promise<string>
+    ```
+    Renders the template to a string.
+    * `template: string` path to your template
+    * `templateValues: ITemplateValues` object, wich properties will be pasted to the template
+    * `options: any` renderOptions (where needed) are the same as [webshot](https://www.npmjs.com/package/webshot)'s
 
 ## Examples
 
