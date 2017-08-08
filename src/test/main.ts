@@ -28,7 +28,7 @@ function assertFile(fileName: string, done: MochaDone): void {
 }
 
 describe('TemplateShot', function(): void {
-    this.timeout(15000); // NOTE webshot is a bit slower than default 2000ms timeout
+    this.timeout(20000); // NOTE webshot is a bit slower than default 2000ms timeout
 
     it('renderString', function(done: MochaDone): void {
         ts.renderString('index.html', {})
