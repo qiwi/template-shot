@@ -49,7 +49,7 @@ because the value was not provided';
     }
     /**
      * Sets the value to the cache by key.
-     * If a promise is provided instead of value, puts the promise into the cache until it's resolved. 
+     * If a promise is provided instead of value, puts the promise into the cache until it's resolved.
      * Then puts the resolved value to the cache
      * @param  {string} key
      * @param  {T|Promise<T>} value
