@@ -27,6 +27,20 @@ describe('Cacher', function(): void {
         });
     });
 
+    it('sync cache', function(done: MochaDone): void {
+        cacher.set('a', 0);
+        cacher.set('b', Promise.resolve('asdf'));
+        cacher.get('a').then((res) => {
+            expect(res).to.eql(0);
+            return cacher.get('b');
+        }).then((res) => {
+            expect(res).to.eql('asdf');
+            done();
+        }).catch((err) => {
+            done(err);
+        });
+    });
+
     it('.has check', function(done: MochaDone): void {
         expect(cacher.has('a')).to.eql(false);
         cacher.set('a', new Promise((resolve, reject) => setTimeout(() => resolve(123), 500)));
