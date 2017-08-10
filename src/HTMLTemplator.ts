@@ -37,15 +37,16 @@ export class HTMLTemplator {
         if (this.useCache && this.templateCache.has(path)) {
             return this.templateCache.get(path);
         } else {
-            const valuePromise: Promise<string> = new Promise<string>((resolve: any, reject: any): void => {
-                readFile(path, (err: Error, template: Buffer) => {
-                    if (err) {
-                        reject(err);
-                    } else {
-                        const res: string = template.toString();
-                        resolve(res);
-                    }
-                });
+            const valuePromise: Promise<string> = new Promise<string>(
+                (resolve: (result: string) => void, reject: (e: Error) => void): void => {
+                    readFile(path, (err: Error, template: Buffer) => {
+                        if (err) {
+                            reject(err);
+                        } else {
+                            const res: string = template.toString();
+                            resolve(res);
+                        }
+                    });
             });
             this.templateCache.set(path, valuePromise);
             return valuePromise;

@@ -1,6 +1,6 @@
 import {EventEmitter} from 'events';
 
-function isPromise(val: any): boolean {
+function isPromise<T>(val: any): val is Promise<T> {
     return typeof(val.then) === 'function';
 }
 
@@ -31,16 +31,17 @@ because the value was not provided';
      */
     public async get(key: string): Promise<T> {
         if (this.cache.has(key)) {
-            const res: any = this.cache.get(key);
+            const res: Promise<T> | T = this.cache.get(key);
             let to;
-            if (typeof(res.then) === 'function') { // if true, we have a Promise<T>
-                return this.noResponseTimeout > 0 ? Promise.race([new Promise((resolve, reject) => {
-                    to = setTimeout(() => reject(new Error(Cacher.TIMEOUT_ERROR_MESSAGE)), this.noResponseTimeout);
-                }), res.then((val) => {
-                    clearTimeout(to);
-                    return val;
-                })]) : res;
-            } else {// else we have T
+            if (isPromise<T>(res)) {
+                return this.noResponseTimeout > 0 ?
+                    Promise.race<T>([new Promise<T>((resolve: (res: T) => void, reject: (e: Error) => void) => {
+                        to = setTimeout(() => reject(new Error(Cacher.TIMEOUT_ERROR_MESSAGE)), this.noResponseTimeout);
+                    }), res.then((val) => {
+                        clearTimeout(to);
+                        return val;
+                    })]) : res;
+            } else {
                 return Promise.resolve(res);
             }
         } else {
@@ -58,8 +59,7 @@ because the value was not provided';
     public set(key: string, value: T | Promise<T>): Promise<void> {
         this.cache.set(key, value);
         if (isPromise(value)) {
-            const valuePromise: any = value;
-            return valuePromise.then((v: T) => {
+            return value.then((v: T) => {
                 this.cache.set(key, v);
             });
         } else {
