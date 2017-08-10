@@ -1,14 +1,18 @@
 import * as path from 'path';
 import {readFile} from 'fs';
 import * as format from 'string-template';
+import {Cacher} from './cacher';
 
 export interface ITemplateValues {
     [key: string]: string;
 }
 
 export class HTMLTemplator {
-    private templateCache: Map<string, string> = new Map<string, string>();
-    constructor(private templateDir: string = '/', private useCache: boolean = false) {
+    private templateCache: Cacher<string> = new Cacher<string>(); // we don't need to reject yet
+    constructor(
+        private templateDir: string = '/',
+        private useCache: boolean = false
+    ) {
         // TODO: make this work relatively to the file where instance is created
         if (this.templateDir.startsWith('./')) {
             this.templateDir = path.join(__dirname, templateDir);
@@ -31,19 +35,21 @@ export class HTMLTemplator {
 
     private readCachedFile(path: string): Promise<string> {
         if (this.useCache && this.templateCache.has(path)) {
-            return Promise.resolve(this.templateCache.get(path));
+            return this.templateCache.get(path);
         } else {
-            return new Promise<string>((resolve: any, reject: any): void => {
-                readFile(path, (err: Error, template: Buffer) => {
-                    if (err) {
-                        reject(err);
-                    } else {
-                        const res: string = template.toString();
-                        this.templateCache.set(path, res);
-                        resolve(res);
-                    }
-                });
+            const valuePromise: Promise<string> = new Promise<string>(
+                (resolve: (result: string) => void, reject: (e: Error) => void): void => {
+                    readFile(path, (err: Error, template: Buffer) => {
+                        if (err) {
+                            reject(err);
+                        } else {
+                            const res: string = template.toString();
+                            resolve(res);
+                        }
+                    });
             });
+            this.templateCache.set(path, valuePromise);
+            return valuePromise;
         }
     }
 }

@@ -1,6 +1,7 @@
 import {TemplateShot} from '../index';
 import {expect} from 'chai';
 import * as imageType from 'image-type';
+import * as sizeOf from 'image-size';
 import * as fs from 'fs';
 
 // TODO fix template path for tests
@@ -9,7 +10,7 @@ const ts = new TemplateShot(templatePath);
 
 const fileName = 'image1.png';
 
-function assertFile(fileName: string, done: MochaDone): void {
+function assertFile(fileName: string, done: MochaDone, size?: {w: number, h: number}): void {
     fs.readFile(fileName, (err, result: Buffer) => {
         if (err) {
             done(err);
@@ -17,11 +18,16 @@ function assertFile(fileName: string, done: MochaDone): void {
 
         const imgType = imageType(result);
         expect(imgType.ext).to.eq('png');
+        if (size) {
+            const dims = sizeOf(fileName);
+            if (dims.width !== size.w || dims.height !== size.h) {
+                done('Wrong image Size!');
+            }
+        }
         fs.unlink(fileName, (err) => {
             if (err) {
                 done(err);
             }
-
             done();
         });
     });
@@ -46,6 +52,22 @@ describe('TemplateShot', function(): void {
         ts.renderFile('index.html', {}, fileName)
             .then(() => {
                 assertFile(fileName, done);
+            })
+            .catch((err) => {
+                done(err);
+            });
+    });
+
+    it('renderFile custom size', function(done: MochaDone): void {
+        ts.renderFile('index.html', {}, fileName, {screenSize: {
+            width: 640,
+            height: 480
+        },
+        shotSize: {
+            width: 'all',
+            height: 'all'
+        }}).then(() => {
+                assertFile(fileName, done, {w: 640, h: 480});
             })
             .catch((err) => {
                 done(err);

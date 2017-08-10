@@ -1,34 +1,69 @@
 import {EventEmitter} from 'events';
 
-export class Cacher<T> extends EventEmitter {
-    private cache: Map<string, T> = new Map<string, T>(); // TODO; add smarter cache here
+function isPromise<T>(val: any): val is Promise<T> {
+    return typeof(val.then) === 'function';
+}
 
+export class Cacher<T> extends EventEmitter {
+    public static readonly TIMEOUT_ERROR_MESSAGE: string = 'Cacher.get timed out\
+because the value was not provided';
+    private cache: Map<string, T | Promise<T> > = new Map<string, T | Promise<T> >(); // TODO; add smarter cache here
+    /**
+     * @param  {number=-1} noResponseTimeout - numbet of mllis to wait for the .get method until it throws an error
+     * if number > 0 === true, else this param is not used
+     */
+    constructor(private noResponseTimeout: number = -1) {super(); }
+
+    /**
+     * Returns true if something is cached with key
+     * @param  {string} key
+     * @returns boolean
+     */
+    public has(key: string): boolean {
+        return this.cache.has(key);
+    }
+    /**
+     * returns the value by key. If the value is still being evaluated, waits until it is and then returns the value
+     * if this.noResponseTimeout > 0 === true, waits no longer than this.noResponseTimeout millis and throws an error if
+     * evaluation continues longer.
+     * @param  {string} key
+     * @returns Promise
+     */
     public async get(key: string): Promise<T> {
         if (this.cache.has(key)) {
-            const res = this.cache.get(key);
-            if (res === undefined) {
-                return new Promise<T>((resolve: any, reject: any): void => {
-                    this.on(key + '_change', (finalResult: T) => resolve(finalResult));
-                });
-                // TODO: reject on timeout
+            const res: Promise<T> | T = this.cache.get(key);
+            let to;
+            if (isPromise<T>(res)) {
+                return this.noResponseTimeout > 0 ?
+                    Promise.race<T>([new Promise<T>((resolve: (res: T) => void, reject: (e: Error) => void) => {
+                        to = setTimeout(() => reject(new Error(Cacher.TIMEOUT_ERROR_MESSAGE)), this.noResponseTimeout);
+                    }), res.then((val) => {
+                        clearTimeout(to);
+                        return val;
+                    })]) : res;
             } else {
                 return Promise.resolve(res);
             }
         } else {
             return Promise.reject(new Error('No such key'));
-            // Maybe we should call this.startCounting(key), and then return;
         }
     }
-
-    public startCounting(key: string): void {
-        this.cache.set(key, undefined);
-    }
-
-    public set(key: string, value: T): boolean {
-        if (value === undefined) {
-            throw new Error('don\'t assign value to undefined');
-        }
+    /**
+     * Sets the value to the cache by key.
+     * If a promise is provided instead of value, puts the promise into the cache until it's resolved.
+     * Then puts the resolved value to the cache
+     * @param  {string} key
+     * @param  {T|Promise<T>} value
+     * @returns Promise
+     */
+    public set(key: string, value: T | Promise<T>): Promise<void> {
         this.cache.set(key, value);
-        return this.emit(key + '_change', value);
+        if (isPromise(value)) {
+            return value.then((v: T) => {
+                this.cache.set(key, v);
+            });
+        } else {
+            return Promise.resolve();
+        }
     }
 }
